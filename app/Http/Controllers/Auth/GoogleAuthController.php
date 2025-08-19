@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Laravel\Socialite\Facades\Socialite;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+
 
 class GoogleAuthController extends Controller
 {
@@ -31,8 +33,7 @@ class GoogleAuthController extends Controller
         // dd($user);
 
         // Generar un token JWT para el usuario autenticado
-        // $token = JWTAuth::fromUser($user); // Prueba para generar token con JWT
-        $token = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 15); // Generar token aleatorio de 10 caracteres alfanuméricos
+        $token = JWTAuth::fromUser($user); // Genera token con JWT
 
         // dd($token);
 
