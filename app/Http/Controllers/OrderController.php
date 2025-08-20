@@ -11,6 +11,20 @@ use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class OrderController extends Controller
 {
+
+      // Mostrar historial de compras
+    public function index()
+    {
+        $user = JWTAuth::parseToken()->authenticate(); 
+        // Trae todas las órdenes del usuario con sus items y productos
+        $orders = Order::with('items.product')
+            ->where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($orders, 200);
+    }
+
     public function confirm()
     {
         $user = JWTAuth::parseToken()->authenticate(); // Obtiene el usuario del token
