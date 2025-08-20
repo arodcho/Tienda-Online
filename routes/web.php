@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -18,6 +19,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/cart', [CartItemController::class, 'index']);
     Route::get('/cartdelet/{id}', [CartItemController::class, 'destroy']);
     Route::get('/cartadd/{id}', [CartItemController::class, 'store']);
+
+    Route::get('/checkout', [OrderController::class, 'confirm']);
 });
 
 // Rutas de autenticación con Google

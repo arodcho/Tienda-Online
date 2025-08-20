@@ -8,53 +8,52 @@
 
 <div id="products" style="margin-top:20px;"></div>
 <div id="cart" style="margin-top:20px;"></div>
+<button id="checkoutBtn" style="display:none; margin-top:10px;">Confirmar Compra</button>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const infoDiv = document.getElementById('info');
-    const loginBtn = document.getElementById('loginBtn');
-    const logoutBtn = document.getElementById('logout');
-    const productsDiv = document.getElementById('products');
-    const cartDiv = document.getElementById('cart');
-    const getProductsBtn = document.getElementById('getProducts');
-    const getCartBtn = document.getElementById('getCart');
+    const $ = id => document.getElementById(id);
+    const infoDiv = $('info');
+    const loginBtn = $('loginBtn');
+    const logoutBtn = $('logout');
+    const productsDiv = $('products');
+    const cartDiv = $('cart');
+    const getProductsBtn = $('getProducts');
+    const getCartBtn = $('getCart');
+    const checkoutBtn = $('checkoutBtn');
 
-    // Mostrar información del usuario
+    function setDisplay(elements, display) {
+        elements.forEach(el => el.style.display = display);
+    }
+
     function showUserInfo(token, user, userId) {
         infoDiv.innerHTML = `<p><strong>Usuario:</strong> ${user}</p>
                              <p><strong>ID:</strong> ${userId}</p>`;
-        loginBtn.style.display = 'none';
-        logoutBtn.style.display = 'inline-block';
-        getProductsBtn.style.display = 'inline-block';
-        getCartBtn.style.display = 'inline-block';
+        setDisplay([loginBtn], 'none');
+        setDisplay([logoutBtn, getProductsBtn, getCartBtn], 'inline-block');
         localStorage.setItem('token', token);
         localStorage.setItem('user', user);
         localStorage.setItem('userId', userId);
     }
 
-    // Cerrar sesión borrando datos localstorage
     function logout() {
-        infoDiv.innerHTML = '';
-        productsDiv.innerHTML = '';
-        cartDiv.innerHTML = '';
-        logoutBtn.style.display = 'none';
-        loginBtn.style.display = 'inline-block';
-        getProductsBtn.style.display = 'none';
-        getCartBtn.style.display = 'none';
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        localStorage.removeItem('userId');
+        [infoDiv, productsDiv, cartDiv].forEach(div => div.innerHTML = '');
+        setDisplay([logoutBtn, getProductsBtn, getCartBtn, checkoutBtn], 'none');
+        setDisplay([loginBtn], 'inline-block');
+        ['token', 'user', 'userId'].forEach(k => localStorage.removeItem(k));
     }
 
-    // Cargar productos 
-    async function loadProducts() {
+    async function fetchWithAuth(url, options = {}) {
         const token = localStorage.getItem('token');
+        const headers = { 'Authorization': 'Bearer ' + token, ...options.headers };
+        const res = await fetch(url, { ...options, headers });
+        if (!res.ok) throw new Error((await res.json()).error || 'Error');
+        return res.json();
+    }
+
+    async function loadProducts() {
         try {
-            const res = await fetch('/products', {
-                headers: { 'Authorization': 'Bearer ' + token }
-            });
-            if (!res.ok) throw new Error('No autorizado');
-            const data = await res.json();
+            const data = await fetchWithAuth('/products');
             productsDiv.innerHTML = '<h3>Productos:</h3><ul>' +
                 data.map(p => `
                     <li>
@@ -68,35 +67,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Agregar producto al carrito
     window.addToCart = async (productId) => {
-        const token = localStorage.getItem('token');
         try {
-            const res = await fetch(`/cartadd/${productId}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            });
-            if (!res.ok) throw new Error('Error al agregar producto');
+            await fetchWithAuth(`/cartadd/${productId}`);
             alert('Producto agregado al carrito');
-             loadCart();
+            loadCart();
         } catch (err) {
             alert(err.message);
         }
     };
 
-    
-
-    // Cargar carrito
     async function loadCart() {
-        const token = localStorage.getItem('token');
         try {
-            const res = await fetch('/cart', {
-                headers: { 'Authorization': 'Bearer ' + token }
-            });
-            if (!res.ok) throw new Error('No autorizado');
-            const data = await res.json();
+            const data = await fetchWithAuth('/cart');
             cartDiv.innerHTML = '<h3>Carrito:</h3><ul>' +
                 data.map(c => `
                     <li>
@@ -105,31 +88,37 @@ document.addEventListener('DOMContentLoaded', () => {
                     </li>`
                 ).join('') +
                 '</ul>';
+            checkoutBtn.style.display = data.length > 0 ? 'inline-block' : 'none';
         } catch (err) {
             cartDiv.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+            checkoutBtn.style.display = 'none';
         }
     }
 
-    // Eliminar producto del carrito
     window.removeFromCart = async (cartItemId) => {
-        const token = localStorage.getItem('token');
         try {
-            const res = await fetch(`/cartdelet/${cartItemId}`, {
-                method: 'get',
-                headers: { 'Authorization': 'Bearer ' + token }
-            });
-            if (!res.ok) throw new Error('Error al eliminar producto');
+            await fetchWithAuth(`/cartdelet/${cartItemId}`);
             loadCart();
         } catch (err) {
             alert(err.message);
         }
     };
 
-    // Comprobar sesión activa
+    async function confirmarCompra() {
+        try {
+            const data = await fetchWithAuth('/checkout');
+            alert('Compra confirmada para el pedido con ID: ' + data.order.id);
+            loadCart();
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+    checkoutBtn.addEventListener('click', confirmarCompra);
+
+    // Sesión
     const storedToken = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
     const storedUserId = localStorage.getItem('userId');
-
     if (storedToken && storedUser && storedUserId) {
         showUserInfo(storedToken, storedUser, storedUserId);
     } else {
@@ -143,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Eventos
     loginBtn.addEventListener('click', () => {
         window.location.href = '{{ url("auth/google/redirect") }}';
     });
