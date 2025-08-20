@@ -10,12 +10,13 @@ use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class GoogleAuthController extends Controller
 {
+    // Redirigir al usuario a Google para autenticación
     public function redirectToGoogle()
     {
-        // Redirigir al usuario a Google para autenticación
         return Socialite::driver('google')->redirect();
     }
 
+    // Manejar la respuesta de Google después de la autenticación
     public function handleGoogleCallback()
     {
 
@@ -29,14 +30,16 @@ class GoogleAuthController extends Controller
                 'password' => bcrypt(uniqid()) // Generar una contraseña aleatoria
             ]
         );
-
         // dd($user);
+
+        $userId = $user->id;
 
         // Generar un token JWT para el usuario autenticado
         $token = JWTAuth::fromUser($user); // Genera token con JWT
 
         // dd($token);
 
-        return redirect('/?token=' . $token . '&user=' . $user->name);
+        // Redirigir al usuario a la página de inicio con el token, nombre del usuario e ID del usuario
+       return redirect('/?token=' . $token . '&user=' . $user->name . '&id=' . $userId);
     }
 }
