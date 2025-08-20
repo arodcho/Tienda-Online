@@ -5,12 +5,14 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class ProductTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+     #[Test]
     public function test_all_products()
     {
         // Crear 5 productos usando el factory
@@ -24,7 +26,7 @@ class ProductTest extends TestCase
             ->assertJsonCount(5);  // debe haber 5 productos
     }
 
-    // /** @test */
+       #[Test]
     public function test_show_product()
     {
         // Crear un producto usando el factory
