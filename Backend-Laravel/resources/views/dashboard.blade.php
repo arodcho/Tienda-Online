@@ -1,187 +1,88 @@
-<h1>Prueba</h1>
-
-<button id="loginBtn">Autenticación con Google</button>
-<div id="info" style="margin-top:20px;"></div>
-<button id="getProducts" style="display:none;">Ver Productos</button>
-<button id="getCart" style="display:none;">Ver Carrito</button>
-<button id="getHistory" style="display:none;">Historial de Compras</button>
-<button id="logout" style="display:none;">Cerrar Sesión</button>
-
-<div id="products" style="margin-top:20px;"></div>
-<div id="cart" style="margin-top:20px;"></div>
-<button id="checkoutBtn" style="display:none; margin-top:10px;">Confirmar Compra</button>
-
-<div id="history" style="margin-top:20px;"></div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const $ = id => document.getElementById(id);
-        const infoDiv = $('info');
-        const loginBtn = $('loginBtn');
-        const logoutBtn = $('logout');
-        const productsDiv = $('products');
-        const cartDiv = $('cart');
-        const historyDiv = $('history');
-        const getProductsBtn = $('getProducts');
-        const getCartBtn = $('getCart');
-        const getHistoryBtn = $('getHistory');
-        const checkoutBtn = $('checkoutBtn');
-
-        // Mostrar/ocultar elementos
-        function setDisplay(elements, display) {
-            elements.forEach(el => el.style.display = display);
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5;
+            color: #333;
         }
-
-        // Mostrar información del usuario
-        function showUserInfo(token, user, userId) {
-            infoDiv.innerHTML = `<p><strong>Usuario:</strong> ${user}</p>
-                             <p><strong>ID:</strong> ${userId}</p>`;
-            setDisplay([loginBtn], 'none');
-            setDisplay([logoutBtn, getProductsBtn, getCartBtn, getHistoryBtn], 'inline-block');
-            localStorage.setItem('token', token);
-            localStorage.setItem('user', user);
-            localStorage.setItem('userId', userId);
+        header {
+            background: #4285F4;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
         }
-
-        // Cerrar sesión
-        function logout() {
-            [infoDiv, productsDiv, cartDiv, historyDiv].forEach(div => div.innerHTML = '');
-            setDisplay([logoutBtn, getProductsBtn, getCartBtn, getHistoryBtn, checkoutBtn], 'none');
-            setDisplay([loginBtn], 'inline-block');
-            ['token', 'user', 'userId'].forEach(k => localStorage.removeItem(k));
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-
-        // Función para hacer peticiones con autenticación
-        async function fetchWithAuth(url, options = {}) {
-            const token = localStorage.getItem('token');
-            const headers = {
-                'Authorization': 'Bearer ' + token,
-                ...options.headers
-            };
-            const res = await fetch(url, {
-                ...options,
-                headers
-            });
-            if (!res.ok) throw new Error((await res.json()).error || 'Error');
-            return res.json();
+        h1, h2 {
+            margin-top: 0;
         }
-
-        // Cargar productos
-        async function loadProducts() {
-            try {
-                const data = await fetchWithAuth('/products');
-                productsDiv.innerHTML = '<h3>Productos:</h3><ul>' +
-                    data.map(p => {
-                        if (p.stock && p.stock > 0) {
-                            return `<li>${p.name} - ${p.price}€ <button onclick="addToCart(${p.id})">Añadir al carrito</button></li>`;
-                        } else {
-                            return `<li>${p.name} - ${p.price}€ <button disabled style="background:#ccc;cursor:not-allowed;">Agotado</button></li>`;
-                        }
-                    }).join('') +
-                    '</ul>';
-            } catch (err) {
-                productsDiv.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
-            }
+        .card {
+            background: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
         }
-
-        // Añadir producto al carrito
-        window.addToCart = async (productId) => {
-            try {
-                await fetchWithAuth(`/cartadd/${productId}`);
-                alert('Producto agregado al carrito');
-                loadCart();
-            } catch (err) {
-                alert(err.message);
-            }
-        };
-
-        // Cargar carrito
-        async function loadCart() {
-            try {
-                const data = await fetchWithAuth('/cart');
-                cartDiv.innerHTML = '<h3>Carrito:</h3><ul>' +
-                    data.map(c =>
-                        `<li>${c.product.name} - ${c.product.price}€ - Cantidad: ${c.quantity} <button onclick="removeFromCart(${c.id})">Eliminar</button></li>`
-                        ).join('') +
-                    '</ul>';
-                checkoutBtn.style.display = data.length > 0 ? 'inline-block' : 'none';
-            } catch (err) {
-                cartDiv.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
-                checkoutBtn.style.display = 'none';
-            }
+        .card code {
+            background: #e1e1e1;
+            padding: 2px 6px;
+            border-radius: 4px;
         }
-
-        // Eliminar producto del carrito
-        window.removeFromCart = async (cartItemId) => {
-            try {
-                await fetchWithAuth(`/cartdelet/${cartItemId}`);
-                loadCart();
-            } catch (err) {
-                alert(err.message);
-            }
-        };
-
-        // Confirmar compra
-        async function confirmarCompra() {
-            try {
-                const data = await fetchWithAuth('/checkout');
-                alert('Compra confirmada para el pedido con ID: ' + data.order.id);
-                loadCart();
-            } catch (err) {
-                alert(err.message);
-            }
+        ul {
+            list-style: none;
+            padding-left: 0;
         }
-
-        // Formatear fecha
-        function formatDate(dateStr) {
-            const d = new Date(dateStr);
-            const day = String(d.getDate()).padStart(2, '0');
-            const month = String(d.getMonth() + 1).padStart(2, '0');
-            const year = d.getFullYear();
-            return `${day}/${month}/${year}`;
+        li {
+            margin: 5px 0;
         }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LARAVEL API - Dashboard</h1>
+    </header>
+    <main>
+        <h2>Endpoints disponibles</h2>
 
-        // Cargar historial de compras
-        async function loadHistory() {
-            try {
-                const data = await fetchWithAuth('/orders'); // endpoint historial
-                historyDiv.innerHTML = '<h3>Historial de Compras:</h3>' +
-                    data.map(o => `<div style="margin-bottom:20px; border-bottom:1px solid #ccc; padding-bottom:10px;">
-                        <strong>Pedido #${o.id}</strong> - Total: ${o.total}€ - Fecha: ${formatDate(o.created_at)}
-                        <ul>` +
-                        o.items.map(i => `<li>${i.product.name} x${i.quantity} - ${i.price}€</li>`).join(
-                        '') +
-                        `</ul></div>`).join('');
-            } catch (err) {
-                historyDiv.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
-            }
-        }
+        <div class="card">
+            <h3>Productos</h3>
+            <ul>
+                <li><code>/products</code> – Listar todos los productos</li>
+                <li><code>/products/{id}</code> – Ver detalles de un producto</li>
+            </ul>
+        </div>
 
-        checkoutBtn.addEventListener('click', confirmarCompra);
-        getHistoryBtn.addEventListener('click', loadHistory);
+        <div class="card">
+            <h3>Carrito</h3>
+            <ul>
+                <li><code>/cart</code> – Ver carrito</li>
+                <li><code>/cartadd/{id}</code> – Añadir producto al carrito</li>
+                <li><code>/cartdelet/{id}</code> – Eliminar producto del carrito</li>
+            </ul>
+        </div>
 
-        // Sesión
-        const storedToken = localStorage.getItem('token');
-        const storedUser = localStorage.getItem('user');
-        const storedUserId = localStorage.getItem('userId');
-        if (storedToken && storedUser && storedUserId) {
-            showUserInfo(storedToken, storedUser, storedUserId);
-        } else {
-            const params = new URLSearchParams(window.location.search);
-            const token = params.get('token');
-            const user = params.get('user');
-            const userId = params.get('id');
-            if (token && user && userId) {
-                showUserInfo(token, user, userId);
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-        }
+        <div class="card">
+            <h3>Pedidos</h3>
+            <ul>
+                <li><code>/checkout</code> – Confirmar compra</li>
+                <li><code>/orders</code> – Ver historial de compras</li>
+            </ul>
+        </div>
 
-        loginBtn.addEventListener('click', () => {
-            window.location.href = '{{ url('auth/google/redirect') }}';
-        });
-        logoutBtn.addEventListener('click', logout);
-        getProductsBtn.addEventListener('click', loadProducts);
-        getCartBtn.addEventListener('click', loadCart);
-    });
-</script>
+        <p>Nota: Esta vista es solo informativa. Toda la funcionalidad se realiza vía API.</p>
+    </main>
+</body>
+</html>

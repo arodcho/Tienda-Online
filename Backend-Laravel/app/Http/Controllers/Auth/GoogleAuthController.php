@@ -40,6 +40,7 @@ class GoogleAuthController extends Controller
         // dd($token);
 
         // Redirigir al usuario a la página de inicio con el token, nombre del usuario e ID del usuario
-       return redirect('/?token=' . $token . '&user=' . $user->name . '&id=' . $userId);
+return redirect('http://localhost:3000/login-success?token=' . $token . '&user=' . $user->name . '&id=' . $userId);
     }
+    
 }
