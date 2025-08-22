@@ -3,30 +3,28 @@ import { createContext, useState, useEffect } from "react";
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [token, setToken] = useState(null);
 
-  // Guardar token en localStorage al cambiar
+  // Al montar, recupera el token si existe en localStorage
   useEffect(() => {
-    if (token) {
-      localStorage.setItem("token", token);
-    } else {
-      localStorage.removeItem("token");
+    const savedToken = localStorage.getItem("token");
+    if (savedToken) {
+      setToken(savedToken);
     }
-  }, [token]);
+  }, []);
 
-  const login = (userData, jwtToken) => {
-    setUser(userData);
-    setToken(jwtToken);
+  const login = (newToken) => {
+    localStorage.setItem("token", newToken);
+    setToken(newToken);
   };
 
   const logout = () => {
-    setUser(null);
+    localStorage.removeItem("token");
     setToken(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
