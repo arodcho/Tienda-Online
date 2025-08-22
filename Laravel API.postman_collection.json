@@ -1,0 +1,240 @@
+{
+	"info": {
+		"_postman_id": "151aed5b-ad1f-4fbb-8190-c43cc1c2f914",
+		"name": "Laravel API",
+		"description": "API para la gestión de un ecommerce, que permite consultar productos, gestionar el carrito de compras y revisar pedidos realizados por los usuarios. Incluye autenticación mediante **Bearer Token** para proteger las rutas que requieren usuario autenticado.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47829293",
+		"_collection_link": "https://speeding-crescent-426373.postman.co/workspace/New-Team-Workspace~9b4a99df-a802-4855-a92a-dc49b313940d/collection/47829293-151aed5b-ad1f-4fbb-8190-c43cc1c2f914?action=share&source=collection_link&creator=47829293"
+	},
+	"item": [
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"products"
+							]
+						},
+						"description": "Obtiene todos los productos"
+					},
+					"response": []
+				},
+				{
+					"name": "products id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/products/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"products",
+								"3"
+							]
+						},
+						"description": "Obtiene producto por id"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para obtener productos"
+		},
+		{
+			"name": "Carrito",
+			"item": [
+				{
+					"name": "cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/cart",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"cart"
+							]
+						},
+						"description": "Muestra todos los productos en el carrito del usuario autenticado"
+					},
+					"response": []
+				},
+				{
+					"name": "cartadd",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/cartadd/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"cartadd",
+								"1"
+							]
+						},
+						"description": "Agrega un producto al carrito del usuario autenticado"
+					},
+					"response": []
+				},
+				{
+					"name": "cartdelet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/cartdelet/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"cartdelet",
+								"2"
+							]
+						},
+						"description": "Elimina un producto del carrito del usuario autenticado"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para mostrar, agregar o eliminar productos del carrito de compra"
+		},
+		{
+			"name": "Pedidos",
+			"item": [
+				{
+					"name": "checkout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/checkout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"checkout"
+							]
+						},
+						"description": "Confirma la compra de los productos del carrito del usuario autenticado"
+					},
+					"response": []
+				},
+				{
+					"name": "orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Muestra los pedidos realizados por el usuario autenticado"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoint para confirmar y mostrar los pedidos realizados por el usuario autenticado"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "Token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+			"type": "string"
+		}
+	]
+}
