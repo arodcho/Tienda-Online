@@ -118,13 +118,13 @@ Authorization: Bearer <TOKEN>
 <img width="1949" height="948" alt="image" src="https://github.com/user-attachments/assets/57818024-2008-4f03-8ae2-ff492096c254" />
 
 #### 🔹 Home
-<img width="1904" height="792" alt="image" src="https://github.com/user-attachments/assets/36528b39-2505-4ca1-a5ce-25771e36c242" />
+<img width="1903" height="789" alt="image" src="https://github.com/user-attachments/assets/c9922dd5-5e07-4bea-9182-808534829dc1" />
 
 #### 🔹 Productos
 <img width="1901" height="946" alt="image" src="https://github.com/user-attachments/assets/ebda253c-533d-42bb-9181-0898202bd24c" />
 
 #### 🔹 Carrito
-<img width="1919" height="683" alt="image" src="https://github.com/user-attachments/assets/43dde505-db15-4fc6-95a0-6ac286d75d9c" />
+<img width="1919" height="746" alt="image" src="https://github.com/user-attachments/assets/7b9afd6f-82af-4cf8-ad2b-26975802c9e3" />
 
 #### 🔹 Pedidos
 <img width="1903" height="947" alt="image" src="https://github.com/user-attachments/assets/6b2e7c8a-9558-4877-a6e8-3418529d7c0b" />
