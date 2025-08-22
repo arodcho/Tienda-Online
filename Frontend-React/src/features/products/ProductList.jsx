@@ -7,21 +7,28 @@ export default function ProductsList() {
   const { addCart } = useCart();
   const [toast, setToast] = useState("");
 
-  const handleaddCart = (productId, productName) => {
+  const handleAddCart = (productId, productName) => {
     addCart(productId);
     setToast(`${productName} agregado al carrito`);
-
-    setTimeout(() => setToast(""), 2000); // desaparece tras 2s
+    setTimeout(() => setToast(""), 2000);
   };
 
-  if (loading) return <p>Cargando productos...</p>;
-  if (error) return <p>Error al cargar productos</p>;
+  if (loading)
+    return (
+      <p className="text-center mt-10 text-gray-700">Cargando productos...</p>
+    );
+  if (error)
+    return (
+      <p className="text-center text-red-500 mt-10">
+        Error al cargar productos
+      </p>
+    );
 
   return (
-    <div className="relative">
+    <div className="relative py-10 px-4">
       {/* Toast flotante */}
       {toast && (
-        <div className="fixed top-4 center-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg animate-slide-in">
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-400 to-green-600 text-white px-6 py-2 rounded-full shadow-lg animate-slide-in">
           {toast}
         </div>
       )}
@@ -30,17 +37,43 @@ export default function ProductsList() {
         {products.map((p) => (
           <div
             key={p.id}
-            className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition flex flex-col"
+            className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-1 flex flex-col"
           >
-            {p.image && (
-              <img src={p.image} alt={p.name} className="w-full h-40 object-cover" />
+            {p.image ? (
+              <div className="h-52 flex items-center justify-center bg-gray-50 overflow-hidden">
+                <img
+                  src={p.image}
+                  alt={p.name}
+                  className="max-h-full max-w-full object-contain transition-transform duration-300 hover:scale-105"
+                  onError={(e) => (e.target.src = "/img/fallback.png")}
+                />
+              </div>
+            ) : (
+              <div className="w-full h-52 bg-gray-200 flex items-center justify-center text-gray-500">
+                Sin imagen
+              </div>
             )}
-            <div className="p-4 flex flex-col flex-grow">
-              <h3 className="text-lg font-semibold text-blue-600 mb-2">{p.name}</h3>
-              <p className="text-gray-600 mb-4">{p.description}</p>
+
+            <div className="p-5 flex flex-col flex-grow">
+              <h3 className="text-lg font-bold text-black mb-2">{p.name}</h3>
+              <p className="text-gray-600 mb-4 flex-grow">{p.description}</p>
+
+              <div className="flex items-center mb-3 gap-2">
+                {/* Precio de oferta */}
+                <p className="text-red-600 font-bold text-lg">{p.price}€</p>
+
+                {/* Precio original 25% más caro tachado */}
+                <p className="text-gray-500 font-semibold text-lg line-through">
+                  {Math.round(p.price * 1.25)}€
+                </p>
+              </div>
+
               <button
-                onClick={() => handleaddCart(p.id, p.name)}
-                className="mt-auto bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                onClick={() => handleAddCart(p.id, p.name)}
+                className="mt-auto px-4 py-2 rounded-full font-semibold text-white shadow-lg
+                           bg-gradient-to-r from-green-400 to-green-600
+                           hover:from-green-500 hover:to-green-700
+                           transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 flex justify-center items-center gap-2"
               >
                 Agregar al carrito
               </button>
