@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Login from "./pages/Login";
-import LoginSuccess from "./pages/LoginSuccess";
+import Login from "./pages/auth/Login";
+import LoginSuccess from "./pages/auth/LoginSuccess";
 import Home from "./pages/Home";
 
 function App() {
