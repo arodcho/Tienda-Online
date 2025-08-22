@@ -118,7 +118,7 @@ Authorization: Bearer <TOKEN>
 <img width="1949" height="948" alt="image" src="https://github.com/user-attachments/assets/57818024-2008-4f03-8ae2-ff492096c254" />
 
 #### 🔹 Home
-<img width="1901" height="794" alt="image" src="https://github.com/user-attachments/assets/d26bd25d-5f9c-415a-ba4f-769111237ef6" />
+<img width="1904" height="792" alt="image" src="https://github.com/user-attachments/assets/36528b39-2505-4ca1-a5ce-25771e36c242" />
 
 #### 🔹 Productos
 <img width="1901" height="946" alt="image" src="https://github.com/user-attachments/assets/ebda253c-533d-42bb-9181-0898202bd24c" />
