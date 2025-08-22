@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import { getCart, addCart as addCartAPI} from "../../services/api";
+import { getCart, addCart as addCartAPI, deleteCartItem as deleteCartItemAPI } from "../../services/api";
 import { AuthContext } from "../auth/AuthContext";
 
 const CartContext = createContext();
@@ -31,9 +31,14 @@ useEffect(() => {
     });
   };
 
+  const removeCart = async (cartItemId) => {
+    if (!token) return;
+    await deleteCartItemAPI(cartItemId, token);
+    setCart((prev) => prev.filter((item) => item.id !== cartItemId));
+  };
 
   return (
-    <CartContext.Provider value={{ cart, addCart}}>
+    <CartContext.Provider value={{ cart, addCart, removeCart }}>
       {children}
     </CartContext.Provider>
   );

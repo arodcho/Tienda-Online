@@ -2,7 +2,7 @@ import { useCart } from "../../features/cart/CartContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeCart } = useCart();
   const navigate = useNavigate();
 
 
@@ -25,7 +25,7 @@ export default function Cart() {
   <li key={item.id} className="flex justify-between mb-4 p-4 bg-white rounded shadow">
     <span>{item.product?.name || "Producto desconocido"} x {item.quantity}</span>
     <button
-      onClick={() => removeFromCart(item.id)}
+      onClick={() => removeCart(item.id)}
       className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
     >
       Eliminar
