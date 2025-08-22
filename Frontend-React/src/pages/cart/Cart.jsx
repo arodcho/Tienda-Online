@@ -1,10 +1,10 @@
 import { useCart } from "../../features/cart/CartContext";
-import { useCheckout } from "../../features/orders/CheckoutContext";
+import { useOrders } from "../../features/orders/OrdersContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const { cart, removeCart, loading: cartLoading } = useCart();
-  const { checkout, loading: checkoutLoading, toast } = useCheckout();
+  const { checkout, loading: checkoutLoading, toast } = useOrders();
   const navigate = useNavigate();
 
   if (cartLoading) return <p>Cargando carrito...</p>;
@@ -24,8 +24,13 @@ export default function Cart() {
       ) : (
         <ul>
           {cart.map((item) => (
-            <li key={item.id} className="flex justify-between mb-4 p-4 bg-white rounded shadow">
-              <span>{item.product?.name || "Producto desconocido"} x {item.quantity}</span>
+            <li
+              key={item.id}
+              className="flex justify-between mb-4 p-4 bg-white rounded shadow"
+            >
+              <span>
+                {item.product?.name || "Producto desconocido"} x {item.quantity}
+              </span>
               <button
                 onClick={() => removeCart(item.id)}
                 className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"

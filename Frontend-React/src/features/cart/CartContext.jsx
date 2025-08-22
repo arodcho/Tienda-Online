@@ -1,5 +1,9 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import { getCart, addCart as addCartAPI, deleteCartItem as deleteCartItemAPI } from "../../services/api";
+import {
+  getCart,
+  addCart as addCartAPI,
+  deleteCartItem as deleteCartItemAPI,
+} from "../../services/api";
 import { AuthContext } from "../auth/AuthContext";
 
 const CartContext = createContext();
@@ -7,7 +11,6 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
   const { token } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
-
 
   const loadCart = async () => {
     if (!token) return;
@@ -29,7 +32,10 @@ export function CartProvider({ children }) {
     const updatedItem = await addCartAPI(productId, token);
     setCart((prev) => {
       const exists = prev.find((item) => item.id === updatedItem.id);
-      if (exists) return prev.map((item) => item.id === updatedItem.id ? updatedItem : item);
+      if (exists)
+        return prev.map((item) =>
+          item.id === updatedItem.id ? updatedItem : item
+        );
       return [...prev, updatedItem];
     });
   };

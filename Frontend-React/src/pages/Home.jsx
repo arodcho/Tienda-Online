@@ -7,13 +7,18 @@ export default function Home() {
         Productos
       </h1>
       <div className="flex justify-end mb-4">
-      <button
-  onClick={() => window.location.href = "/cart"}
-  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
->
-  Ver Carrito
-</button>
-
+        <button
+          onClick={() => (window.location.href = "/orders")}
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        >
+          Mis compras
+        </button>
+        <button
+          onClick={() => (window.location.href = "/cart")}
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        >
+          Carrito
+        </button>
       </div>
       <ProductsList />
     </div>
