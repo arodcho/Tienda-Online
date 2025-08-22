@@ -1,6 +1,6 @@
 # Tienda Online
 
-Proyecto de comercio electrónico desarrollado con **Laravel** para la Api y **React** para el frontend. Permite la gestión de productos, categorías y usuarios, y cuenta con funcionalidades de carrito de compras.
+Proyecto de comercio electrónico desarrollado con Laravel para la Api y React para el frontend. Permite la gestión de listado de productos y cuenta con funcionalidades de carrito de compras e historial de pedidos.
 
 ---
 
