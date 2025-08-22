@@ -11,20 +11,28 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
   const { token } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(true); // <-- nuevo estado loading
 
   const loadCart = async () => {
-    if (!token) return;
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
     try {
       const data = await getCart(token);
       setCart(data);
     } catch (err) {
       console.error("Error cargando carrito:", err);
       setCart([]);
+    } finally {
+      setLoading(false); // <-- termina carga
     }
   };
 
   useEffect(() => {
     if (token) loadCart();
+    else setLoading(false);
   }, [token]);
 
   const addCart = async (productId) => {
@@ -32,10 +40,7 @@ export function CartProvider({ children }) {
     const updatedItem = await addCartAPI(productId, token);
     setCart((prev) => {
       const exists = prev.find((item) => item.id === updatedItem.id);
-      if (exists)
-        return prev.map((item) =>
-          item.id === updatedItem.id ? updatedItem : item
-        );
+      if (exists) return prev.map((item) => (item.id === updatedItem.id ? updatedItem : item));
       return [...prev, updatedItem];
     });
   };
@@ -47,7 +52,7 @@ export function CartProvider({ children }) {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addCart, removeCart, loadCart }}>
+    <CartContext.Provider value={{ cart, addCart, removeCart, loadCart, loading }}>
       {children}
     </CartContext.Provider>
   );

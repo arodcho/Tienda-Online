@@ -7,40 +7,56 @@ use App\Models\User;
 use Laravel\Socialite\Facades\Socialite;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
-
+/**
+ * Controlador para la autenticación con Google mediante OAuth.
+ */
 class GoogleAuthController extends Controller
 {
-    // Redirigir al usuario a Google para autenticación
+    /**
+     * Redirige al usuario a Google para iniciar sesión.
+     *
+     * @return \Illuminate\Http\Response Redirección a Google OAuth
+     */
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
 
-    // Manejar la respuesta de Google después de la autenticación
+    /**
+     * Maneja la respuesta de Google después de la autenticación.
+     * Crea o obtiene el usuario en la base de datos y genera un token JWT.
+     * Redirige al frontend con token, nombre de usuario e ID.
+     * Contiene dd() para depuración.
+     *
+     * @return \Illuminate\Http\RedirectResponse Redirección al frontend con credenciales
+     */
     public function handleGoogleCallback()
     {
-
+        // Obtener la información del usuario desde Google
         $googleUser = Socialite::driver('google')->stateless()->user();
-        // dd($googleUser); 
+        dd($googleUser); // Depuración: muestra los datos devueltos por Google
 
+        // Crear usuario si no existe, usando email como clave
         $user = User::firstOrCreate(
             ['email' => $googleUser->getEmail()],
             [
                 'name' => $googleUser->getName(),
-                'password' => bcrypt(uniqid()) // Generar una contraseña aleatoria
+                'password' => bcrypt(uniqid()) // Contraseña aleatoria
             ]
         );
-        // dd($user);
+        dd($user); // Depuración: muestra el usuario en la base de datos
 
         $userId = $user->id;
 
-        // Generar un token JWT para el usuario autenticado
-        $token = JWTAuth::fromUser($user); // Genera token con JWT
+        // Generar token JWT para el usuario autenticado
+        $token = JWTAuth::fromUser($user);
+        dd($token); // Depuración: muestra el token JWT
 
-        // dd($token);
-
-        // Redirigir al usuario a la página de inicio con el token, nombre del usuario e ID del usuario
-return redirect('http://localhost:3000/login-success?token=' . $token . '&user=' . $user->name . '&id=' . $userId);
+        // Redirigir al frontend con token, nombre e ID del usuario
+        return redirect(
+            'http://localhost:3000/login-success?token=' . $token . 
+            '&user=' . $user->name . 
+            '&id=' . $userId
+        );
     }
-    
 }

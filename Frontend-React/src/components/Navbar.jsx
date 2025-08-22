@@ -86,6 +86,12 @@ const handleLogout = () => {
             {/* Menú desplegable */}
             {openMenu && (
               <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg py-2 flex flex-col z-50">
+                    <button
+                  onClick={() => (window.location.href = "/")}
+                  className="px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg text-left"
+                >
+                  Inicio
+                </button>
                 <button
                   onClick={() => (window.location.href = "/orders")}
                   className="px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg text-left"

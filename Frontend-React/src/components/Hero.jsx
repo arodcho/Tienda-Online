@@ -19,22 +19,26 @@ export default function Hero() {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: `linear-gradient(0deg, #f1fff9, #f1fff900 30%),
+          backgroundImage: `linear-gradient(0deg, #d0eedd, #f1fff900 30%),
                             radial-gradient(circle at 0 0, #5fd5b6 0, #5fd5b600 30%),
                             linear-gradient(180deg, #79dfffb3 -10%, #79dfff00 70%),
                             radial-gradient(circle at 95% 0, #b7d11e 0, #5fd5b600 20%)`,
-          opacity: 0.25, // menor opacidad para ver más la imagen
+          opacity: 0.35, // menor opacidad para ver más la imagen
         }}
       ></div>
 
       <div className="relative text-center px-4">
-        <h1 className="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text
-                       bg-gradient-to-r from-green-600 to-blue-600 drop-shadow-lg mb-4">
-          Bienvenido a <span className="text-white">TiendaOnline</span>
+        <h1
+          className="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text
+                       bg-gradient-to-r from-green-600 to-blue-600 drop-shadow-lg mb-4"
+        >
+          Bienvenido a <span className="text-white">ShopCord</span>
         </h1>
-        <p className="text-white text-lg md:text-2xl mb-6 drop-shadow-md">
-          Descubre los mejores productos al mejor precio
+        <p className="text-white text-lg md:text-3xl mb-6 drop-shadow-md">
+          Descubre los mejores productos al mejor precio <br />
+          ¡Ofertas exclusivas y envío rápido a tu puerta!
         </p>
+
         <button
           onClick={scrollToProducts}
           className="px-6 py-3 rounded-full font-semibold text-white shadow-lg
