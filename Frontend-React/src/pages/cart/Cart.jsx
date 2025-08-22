@@ -2,12 +2,11 @@ import { useCart } from "../../features/cart/CartContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
-  const { cart, removeCart } = useCart();
+  const { cart, removeCart, loading } = useCart();
   const navigate = useNavigate();
 
-
-
-  if (!cart.length) return <p>El carrito está vacío</p>;
+  if (loading) return <p>Cargando carrito...</p>; // mostrar mientras carga
+  if (!cart.length) return <p>El carrito está vacío</p>; // solo si ya terminó de cargar
 
   return (
     <div className="container mx-auto px-6 py-10">
@@ -21,18 +20,17 @@ export default function Cart() {
       </button>
 
       <ul>
-    {cart.map((item) => (
-  <li key={item.id} className="flex justify-between mb-4 p-4 bg-white rounded shadow">
-    <span>{item.product?.name || "Producto desconocido"} x {item.quantity}</span>
-    <button
-      onClick={() => removeCart(item.id)}
-      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
-    >
-      Eliminar
-    </button>
-  </li>
-))}
-
+        {cart.map((item) => (
+          <li key={item.id} className="flex justify-between mb-4 p-4 bg-white rounded shadow">
+            <span>{item.product?.name || "Producto desconocido"} x {item.quantity}</span>
+            <button
+              onClick={() => removeCart(item.id)}
+              className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+            >
+              Eliminar
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   );
