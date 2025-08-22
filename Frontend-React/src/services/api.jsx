@@ -23,7 +23,7 @@ export const getCart = async (token) => {
   return res.json();
 };
 
-export const addToCart = async (productId, token) => {
+export const addCart = async (productId, token) => {
   const res = await fetch(`${API_URL}/cartadd/${productId}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
