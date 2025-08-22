@@ -90,7 +90,7 @@ const handleLogout = () => {
                   onClick={() => (window.location.href = "/orders")}
                   className="px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg text-left"
                 >
-                  Mis compras
+                  Mis pedidos
                 </button>
                 <button
                   onClick={handleLogout}
