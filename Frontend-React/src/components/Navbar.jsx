@@ -28,7 +28,7 @@ const handleLogout = () => {
         {/* Logo + Nombre */}
         <div
           className="flex items-center gap-3 cursor-pointer transition-transform duration-300 hover:scale-105"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={() => (window.location.href = "/")}
         >
           <div className="w-14 h-14 rounded-full overflow-hidden border-2 p-1 border-white shadow-xl flex items-center justify-center ">
             <img
@@ -40,7 +40,7 @@ const handleLogout = () => {
           <h1 className="text-4xl font-extrabold text-transparent bg-clip-text
                          bg-gradient-to-r from-green-600 to-blue-600
                          drop-shadow-lg hover:from-green-500 hover:to-blue-500 transition-all duration-300">
-            TiendaOnline
+            ShopCord
           </h1>
         </div>
 
