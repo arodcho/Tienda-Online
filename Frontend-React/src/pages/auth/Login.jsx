@@ -4,11 +4,33 @@ function Login() {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Login</h1>
-      <button onClick={handleGoogleLogin}>
-        Iniciar sesión con Google
-      </button>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-blue-300 to-purple-200 px-4">
+      <div className="relative bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md">
+        {/* Logo arriba */}
+        <div className="flex justify-center mb-2">
+          <img src="/img/logo.png" alt="Logo" className="w-20 h-20 object-contain" />
+        </div>
+
+        <h1 className="text-3xl font-extrabold text-center text-gray-900 mb-4">
+          Bienvenido
+        </h1>
+        <p className="text-center text-gray-700 mb-6">
+          Inicia sesión para continuar con tu cuenta en <b>TiendaOnline</b>
+        </p>
+
+        {/* Botón Google */}
+        <button
+          onClick={handleGoogleLogin}
+          className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 active:bg-gray-100 text-gray-900 font-semibold py-3 px-4 rounded-lg shadow-md transition-all duration-200 transform hover:-translate-y-0.5"
+        >
+          <img
+            src="/img/google-logo.webp"
+            alt="Google logo"
+            className="w-6 h-6"
+          />
+          Iniciar sesión con Google
+        </button>
+      </div>
     </div>
   );
 }
