@@ -158,7 +158,7 @@ Authorization: Bearer <TOKEN>
 <img width="1903" height="850" alt="image" src="https://github.com/user-attachments/assets/c1e80c3e-b8ee-44cc-827e-340c60693b43" />
 
 #### 🔹 Laravel API
-<img width="1917" height="947" alt="image" src="https://github.com/user-attachments/assets/4742bea6-7986-4615-ad10-16135c41796c" />
+<img width="1919" height="946" alt="image" src="https://github.com/user-attachments/assets/92fc11da-41c5-45ec-b74b-34bc46587b44" />
 
 ## Uso de Inteligencia Artificial (IA)
 
