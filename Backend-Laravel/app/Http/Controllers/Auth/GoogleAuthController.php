@@ -34,7 +34,7 @@ class GoogleAuthController extends Controller
     {
         // Obtener la información del usuario desde Google
         $googleUser = Socialite::driver('google')->stateless()->user();
-        dd($googleUser); // Depuración: muestra los datos devueltos por Google
+        //dd($googleUser); Depuración: muestra los datos devueltos por Google
 
         // Crear usuario si no existe, usando email como clave
         $user = User::firstOrCreate(
@@ -44,13 +44,13 @@ class GoogleAuthController extends Controller
                 'password' => bcrypt(uniqid()) // Contraseña aleatoria
             ]
         );
-        dd($user); // Depuración: muestra el usuario en la base de datos
+        //dd($user); Depuración: muestra el usuario en la base de datos
 
         $userId = $user->id;
 
         // Generar token JWT para el usuario autenticado
         $token = JWTAuth::fromUser($user);
-        dd($token); // Depuración: muestra el token JWT
+        //dd($token); Depuración: muestra el token JWT
 
         // Redirigir al frontend con token, nombre e ID del usuario
         return redirect(
