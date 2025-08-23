@@ -27,6 +27,12 @@ git clone https://github.com/arodcho/Tienda-Online.git
 ```bash
 cd Backend-Laravel
 npm install
+composer install
+```
+⚠️ Nota:
+Si surge algún problema al ejecutar composer install, edita el archivo php.ini y descomenta la siguiente línea: ;extension=sodium
+```bash
+extension=sodium
 ```
 
 3. Instalar dependencias en el frontend:
@@ -41,6 +47,16 @@ npm install
 ##  Configurar `.env`
 
 Configurar las variables de entorno en el backend:
+1. Copiar el archivo de ejemplo:
+```bash
+cp .env.example .env
+```
+
+2. Generar claves necesarias:
+```bash
+php artisan key:generate
+php artisan jwt:secret
+```
 
 ```env
 DB_CONNECTION=mysql
@@ -56,11 +72,15 @@ GOOGLE_REDIRECT_URI=http://localhost:8000/auth/google/callback
 
 JWT_SECRET=<tu_clave_secreta>
 ```
+⚠️Importante:
+Configurar las credenciales de Google desde Google Cloud Console. Asegúrate de que la URL de redirección configurada en Google coincida con GOOGLE_REDIRECT_URI en tu .env.
 
 ---
 
-## Ejecutar migraciones y seeders
+##  Crear base de datos en MySQL y ejecutar migraciones y seeders
 
+Antes de ejecutar las migraciones, asegúrate de crear la base de datos en MySQL.  
+El nombre debe coincidir con el configurado en el archivo `.env`.
 Desde la carpeta del backend:
 
 ```bash
