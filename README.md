@@ -1,4 +1,9 @@
-# Tienda Online
+# ShopCord
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/be69b4ae-257b-4f08-8d9e-2fdc50e27ec3" width="800" alt="979shots_so" />
+</p>
+
 
 Proyecto de comercio electrónico desarrollado con Laravel para la Api y React para el frontend. Permite la gestión de listado de productos y cuenta con funcionalidades de carrito de compras e historial de pedidos.
 
@@ -149,7 +154,8 @@ Authorization: Bearer <TOKEN>
 #### 🔹 Pedidos
 <img width="1903" height="947" alt="image" src="https://github.com/user-attachments/assets/6b2e7c8a-9558-4877-a6e8-3418529d7c0b" />
 
+#### 🔹 Menu desplegable
+<img width="1903" height="850" alt="image" src="https://github.com/user-attachments/assets/c1e80c3e-b8ee-44cc-827e-340c60693b43" />
+
 #### 🔹 Laravel API
 <img width="1917" height="947" alt="image" src="https://github.com/user-attachments/assets/4742bea6-7986-4615-ad10-16135c41796c" />
-
-
