@@ -44,7 +44,7 @@ export default function Navbar() {
 
         {/* Botones y avatar */}
         <div className="flex items-center gap-4 relative">
-          {/* Carrito solo visible en md+ */}
+          {/* Carrito solo visible en sm+ */}
           <button
             onClick={() => (window.location.href = "/cart")}
             className="hidden sm:flex relative items-center gap-2 px-5 py-2 rounded-full font-semibold text-white shadow-lg
