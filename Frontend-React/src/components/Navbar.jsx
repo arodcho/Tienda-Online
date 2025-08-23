@@ -5,14 +5,12 @@ export default function Navbar() {
   const { cart } = useCart();
   const [openMenu, setOpenMenu] = useState(false);
 
- 
-const handleLogout = () => {
-    // limpiar estado de usuario
-    localStorage.removeItem("token"); // eliminar token
-    localStorage.removeItem("userName"); // eliminar nombre de usuario
-    localStorage.removeItem("userId"); // eliminar userId
-    window.location.href = "/";      // redirigir
-};
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userId");
+    window.location.href = "/";
+  };
 
   return (
     <nav
@@ -30,7 +28,7 @@ const handleLogout = () => {
           className="flex items-center gap-3 cursor-pointer transition-transform duration-300 hover:scale-105"
           onClick={() => (window.location.href = "/")}
         >
-          <div className="w-14 h-14 rounded-full overflow-hidden border-2 p-1 border-white shadow-xl flex items-center justify-center ">
+          <div className="w-14 h-14 rounded-full overflow-hidden border-2 p-1 border-white shadow-xl flex items-center justify-center">
             <img
               src="/img/logo.webp"
               alt="Logo"
@@ -44,11 +42,12 @@ const handleLogout = () => {
           </h1>
         </div>
 
-        {/* Botones, carrito y avatar */}
+        {/* Botones y avatar */}
         <div className="flex items-center gap-4 relative">
+          {/* Carrito solo visible en md+ */}
           <button
             onClick={() => (window.location.href = "/cart")}
-            className="relative flex items-center gap-2 px-5 py-2 rounded-full font-semibold text-white shadow-lg
+            className="hidden sm:flex relative items-center gap-2 px-5 py-2 rounded-full font-semibold text-white shadow-lg
                        bg-gradient-to-r from-blue-400 to-indigo-600
                        hover:from-blue-500 hover:to-indigo-700
                        transition-all duration-300 transform hover:-translate-y-1 hover:scale-105"
@@ -86,7 +85,15 @@ const handleLogout = () => {
             {/* Menú desplegable */}
             {openMenu && (
               <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg py-2 flex flex-col z-50">
-                    <button
+                {/* Agregar carrito en móvil */}
+                <button
+                  onClick={() => (window.location.href = "/cart")}
+                  className="px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg text-left sm:hidden"
+                >
+                  Carrito
+                </button>
+
+                <button
                   onClick={() => (window.location.href = "/")}
                   className="px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg text-left"
                 >
