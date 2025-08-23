@@ -69,7 +69,7 @@
             <h3>Carrito</h3>
             <ul>
                 <li><code>/cart</code> – Ver carrito</li>
-                <li><code>/cartadd/{id}</code> – Añadir producto al carrito</li>
+                <li><code>/cartadd</code> – Añadir producto al carrito</li>
                 <li><code>/cartdelet/{id}</code> – Eliminar producto del carrito</li>
             </ul>
         </div>

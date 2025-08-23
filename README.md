@@ -132,9 +132,9 @@ Authorization: Bearer <TOKEN>
 | GET    | `/products`      | Listar productos              |
 | GET    | `/products/id`   | Obtener producto por id       |
 | GET    | `/cart`          | Obtener carrito               |
-| GET    | `/cartadd/id`    | Añadir producto al carrito    |
-| GET    | `/cartdelet/id`  | Eliminar producto del carrito |
-| GET    | `/checkout`      | Confirmar compra              |
+| POST   | `/cartadd`       | Añadir producto al carrito    |
+| DELETE  | `/cartdelet/id`  | Eliminar producto del carrito |
+| POST    | `/checkout`     | Confirmar compra              |
 | GET    | `/orders`        | Historial de pedidos          |
 
 ### Vista previa de la aplicación
