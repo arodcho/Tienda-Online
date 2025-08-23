@@ -14,52 +14,60 @@ class CartitemTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Test para agregar un producto al carrito del usuario autenticado.
+     * Verifica que el producto se agregue correctamente en la base de datos.
+     */
     #[Test]
     public function add_to_cart()
     {
-        // Crea un usuario y un producto para la prueba
+        // Crear usuario y token JWT
         $user = User::factory()->create();
         $product = Product::factory()->create();
-
-        // Crea un token JWT para el usuario
         $token = JWTAuth::fromUser($user);
 
-        // Realiza una solicitud para agregar el producto al carrito
+        // Realizar petición POST al endpoint /cartadd
         $response = $this->withHeaders([
             'Authorization' => "Bearer $token",
-        ])->getJson("/cartadd/{$product->id}");
+        ])->postJson('/cartadd', [
+            'product_id' => $product->id
+        ]);
 
-        // Verifica que la respuesta sea exitosa y que el producto se haya agregado al carrito
+        // Verificar que la respuesta sea 201 (creado)
         $response->assertStatus(201);
+
+        // Verificar que el item se encuentre en la base de datos
         $this->assertDatabaseHas('cart_items', [
             'user_id' => $user->id,
             'product_id' => $product->id,
         ]);
     }
 
+    /**
+     * Test para listar los items del carrito del usuario autenticado.
+     * Verifica que la respuesta incluya correctamente los productos del carrito.
+     */
     #[Test]
     public function list_cart_items()
     {
-        // Crea un usuario, un producto y un elemento del carrito
+        // Crear usuario, producto y agregar item al carrito
         $user = User::factory()->create();
         $product = Product::factory()->create();
 
-        // Crea un elemento del carrito asociado al usuario y al producto
         CartItem::factory()->create([
             'user_id' => $user->id,
             'product_id' => $product->id,
             'quantity' => 2,
         ]);
 
-        // Crea un token JWT para el usuario
         $token = JWTAuth::fromUser($user);
 
-        // Realiza una solicitud para obtener los elementos del carrito
+        // Realizar petición GET al endpoint /cart
         $response = $this->withHeaders([
             'Authorization' => "Bearer $token",
         ])->getJson('/cart');
 
-        // Verifica que la respuesta sea exitosa y que contenga el elemento del carrito
+        // Verificar que la respuesta sea 200 (OK) y contenga los datos correctos
         $response->assertStatus(200)
             ->assertJsonFragment([
                 'product_id' => $product->id,
@@ -67,10 +75,14 @@ class CartitemTest extends TestCase
             ]);
     }
 
+    /**
+     * Test para eliminar un item del carrito del usuario autenticado.
+     * Verifica que el item se elimine correctamente de la base de datos.
+     */
     #[Test]
     public function remove_from_cart()
     {
-        // Crea un usuario, un producto y un elemento del carrito
+        // Crear usuario, producto y item de carrito
         $user = User::factory()->create();
         $product = Product::factory()->create();
         $cartItem = CartItem::factory()->create([
@@ -78,16 +90,17 @@ class CartitemTest extends TestCase
             'product_id' => $product->id,
         ]);
 
-        // Crea un token JWT para el usuario
         $token = JWTAuth::fromUser($user);
 
-        // Realiza una solicitud para eliminar el elemento del carrito
+        // Realizar petición DELETE al endpoint /cart/{id}
         $response = $this->withHeaders([
             'Authorization' => "Bearer $token",
-        ])->getJson('/cartdelet/' . $cartItem->id);
+        ])->deleteJson('/cart/' . $cartItem->id);
 
-        // Verifica que la respuesta sea exitosa y que el elemento del carrito haya sido eliminado
+        // Verificar que la respuesta sea 200 (OK)
         $response->assertStatus(200);
+
+        // Verificar que el item ya no exista en la base de datos
         $this->assertDatabaseMissing('cart_items', [
             'id' => $cartItem->id,
         ]);

@@ -32,10 +32,10 @@ class OrderTest extends TestCase
             'quantity' => 2,
         ]);
 
-        // Llamar al endpoint GET /checkout
+        // Llamar al endpoint POST /checkout
         $response = $this->withHeaders([
             'Authorization' => "Bearer $token"
-        ])->getJson('/checkout');
+        ])->postJson('/checkout');
 
         // Comprobar que la respuesta es correcta
         $response->assertStatus(201)
