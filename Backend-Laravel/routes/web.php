@@ -7,6 +7,16 @@ use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\OrderController;
 
 /**
+ * Ruta para obtener el token CSRF
+ * Útil para aplicaciones frontend que necesitan este token para solicitudes POST, PUT, DELETE.
+ */
+Route::get('/csrf-token', function () {
+    return response()->json([
+        'csrf_token' => csrf_token()
+    ]);
+});
+
+/**
  * Ruta principal de la aplicación.
  * Muestra el dashboard o la página principal.
  */
@@ -30,18 +40,19 @@ Route::middleware(['auth:api'])->group(function () {
     /**
      * Rutas del carrito de compras
      */
-    // Obtener los items del carrito
+    // Obtener items del carrito
     Route::get('/cart', [CartItemController::class, 'index']);
+    // Agregar producto al carrito 
+    Route::post('/cartadd', [CartItemController::class, 'store']);
     // Eliminar un item del carrito por ID
-    Route::get('/cartdelet/{id}', [CartItemController::class, 'destroy']);
-    // Agregar un producto al carrito por ID
-    Route::get('/cartadd/{id}', [CartItemController::class, 'store']);
+    Route::delete('/cart/{id}', [CartItemController::class, 'destroy']);
+
 
     /**
      * Rutas de pedidos
      */
     // Confirmar checkout
-    Route::get('/checkout', [OrderController::class, 'confirm']);
+    Route::post('/checkout', [OrderController::class, 'confirm']);
     // Obtener historial de órdenes
     Route::get('/orders', [OrderController::class, 'index']);
 });

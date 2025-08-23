@@ -66,7 +66,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+									"value": "JWT_TOKEN",
 									"type": "string"
 								}
 							]
@@ -96,23 +96,22 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+									"value": "JWT_TOKEN",
 									"type": "string"
 								}
 							]
 						},
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/cartadd/1",
+							"raw": "http://localhost:8000/cartadd",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8000",
 							"path": [
-								"cartadd",
-								"1"
+								"cartadd"
 							]
 						},
 						"description": "Agrega un producto al carrito del usuario autenticado"
@@ -127,12 +126,12 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+									"value": "JWT_TOKEN",
 									"type": "string"
 								}
 							]
 						},
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
 						"url": {
 							"raw": "http://localhost:8000/cartdelet/2",
@@ -164,12 +163,12 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+									"value": "JWT_TOKEN",
 									"type": "string"
 								}
 							]
 						},
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "http://localhost:8000/checkout",
@@ -194,7 +193,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+									"value": "JWT_TOKEN",
 									"type": "string"
 								}
 							]
@@ -225,7 +224,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+				"value": "JWT_TOKEN",
 				"type": "string"
 			}
 		]
@@ -233,7 +232,7 @@
 	"variable": [
 		{
 			"key": "Token",
-			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXV0aC9nb29nbGUvY2FsbGJhY2siLCJpYXQiOjE3NTU4ODY0ODAsImV4cCI6MTc1NTg5MDA4MCwibmJmIjoxNzU1ODg2NDgwLCJqdGkiOiIxY3ZlSEl0S2EwSjFNM282Iiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.jw0YS4-rUiS5S6pnZ97zT8Ey1sCoYIzbKjQUM9Afs_w",
+			"value": "JWT_TOKEN",
 			"type": "string"
 		}
 	]
