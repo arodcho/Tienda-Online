@@ -1,4 +1,13 @@
+import React from "react";
+
+/**
+ * Componente de Login.
+ * Muestra una pantalla de bienvenida e inicia sesión usando Google OAuth.
+ */
 function Login() {
+  /**
+   * Redirige al usuario a la URL de autenticación de Google.
+   */
   const handleGoogleLogin = () => {
     window.open("http://127.0.0.1:8000/auth/google/redirect", "_self");
   };

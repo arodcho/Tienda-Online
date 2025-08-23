@@ -5,35 +5,52 @@ namespace App\Http\Controllers;
 use App\Models\CartItem;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
+/**
+ * Controlador para manejar el carrito de compras.
+ * Permite ver, agregar y eliminar productos del carrito.
+ */
 class CartItemController extends Controller
 {
-    // Ver carrito
+    /**
+     * Ver el carrito del usuario autenticado.
+     *
+     * @return \Illuminate\Http\JsonResponse Lista de items del carrito con productos relacionados
+     */
     public function index()
     {
-
-        $user = JWTAuth::parseToken()->authenticate(); // Obtiene el usuario del token
+        // Obtener usuario desde el token JWT
+        $user = JWTAuth::parseToken()->authenticate();
         $userId = $user->id;
 
-        // dd($userId);
+        // dd($userId); // Depuración: muestra el ID del usuario
+
+        // Obtener items del carrito junto con los productos relacionados
         $CartItem = CartItem::with('product')->where('user_id', $userId)->get();
+
         return response()->json($CartItem, 200);
     }
 
-    // Agregar producto
+    /**
+     * Agregar un producto al carrito del usuario autenticado.
+     * Si el producto ya existe, incrementa la cantidad.
+     *
+     * @param int $id ID del producto a agregar
+     * @return \Illuminate\Http\JsonResponse Item agregado o actualizado
+     */
     public function store($id)
     {
-        // dd($id);
+        // dd($id); // Depuración: muestra el ID del producto
 
-        $user = JWTAuth::parseToken()->authenticate(); // Obtiene el usuario del token
+        $user = JWTAuth::parseToken()->authenticate();
         $userId = $user->id;
-        // dd($userId);
+        // dd($userId); // Depuración: muestra el ID del usuario
 
         // Verifica si el producto ya está en el carrito
         $cartItem = CartItem::where('user_id', $userId)
             ->where('product_id', $id)
             ->first();
 
-        // Si el producto ya está en el carrito, incrementa la cantidad
+        // Si existe, incrementa cantidad; si no, crea un nuevo item
         if ($cartItem) {
             $cartItem->increment('quantity');
         } else {
@@ -44,26 +61,31 @@ class CartItemController extends Controller
             ]);
         }
 
-        // Retorna el carrito actualizado
         return response()->json($cartItem, 201);
     }
 
-    // Eliminar producto del carrito
+    /**
+     * Eliminar un producto del carrito del usuario autenticado.
+     *
+     * @param int $id ID del item del carrito
+     * @return \Illuminate\Http\JsonResponse Mensaje de éxito o error
+     */
     public function destroy($id)
     {
-        // dd($id);
-        $user = JWTAuth::parseToken()->authenticate(); // Obtiene el usuario del token
+        // dd($id); // Depuración: muestra el ID del carrito
 
+        $user = JWTAuth::parseToken()->authenticate();
         $userId = $user->id;
-        //  dd($userId);
-        $CartItem = CartItem::where('user_id', $userId)->where('id', $id)->first();
-        // dd($CartItem);
+        // dd($userId); // Depuración: muestra el ID del usuario
 
-        // Si el carrito no existe, retorna un error 404
+        $CartItem = CartItem::where('user_id', $userId)->where('id', $id)->first();
+        // dd($CartItem); // Depuración: muestra el item del carrito encontrado
+
         if ($CartItem) {
             $CartItem->delete();
             return response()->json(['message' => 'Producto eliminado'], 200);
         }
+
         return response()->json(['message' => 'No encontrado'], 404);
     }
 }
