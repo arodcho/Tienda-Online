@@ -159,3 +159,17 @@ Authorization: Bearer <TOKEN>
 
 #### 🔹 Laravel API
 <img width="1917" height="947" alt="image" src="https://github.com/user-attachments/assets/4742bea6-7986-4615-ad10-16135c41796c" />
+
+## Uso de Inteligencia Artificial (IA)
+
+Durante el desarrollo de **ShopCord** se ha hecho uso de **IA** para optimizar y agilizar varias tareas:
+
+* **Generación de seeders y datos de prueba:** Creación automática de productos, carrito y pedidos.  
+* **Hoja de ruta del proyecto:** Definición de fases, prioridades y funcionalidades.  
+* **Organización de ramas y commits:** Sugerencias de nombres de ramas (`feature/`, `bugfix/`) y mensajes de commit claros.  
+* **Estructura de carpetas y componentes:** Orientación para backend, frontend y archivos de configuración.  
+* **Documentación inicial y pasos de instalación:** Ejemplo de README, configuración de `.env` y pasos de ejecución.
+* Resolución de dudas y errores de código: Asistencia para identificar problemas y sugerir soluciones durante el desarrollo.
+
+> La IA no reemplaza la lógica del desarrollador, sino que sirve como asistente para automatizar tareas repetitivas, estructurar el proyecto y documentar el código eficientemente.
+
